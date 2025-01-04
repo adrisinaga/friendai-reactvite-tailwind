@@ -236,49 +236,53 @@ function App() {
       </div>
 
       {/* Main Chat Area */}
-      <div className="flex-1 flex flex-col h-screen overflow-hidden">
+      <div className="flex-1 flex flex-col h-screen relative">
         <div className="p-4 border-b border-[#44475a] bg-[#282a36]">
           <h1 className="text-xl font-semibold text-center text-[#ffffff]">
             Carryu Indonesia AI
           </h1>
         </div>
-        <ScrollArea className="flex-1 p-4 overflow-y-auto">
-          <div className="max-w-3xl mx-auto">
-            {messages.map((message, index) => (
-              <div
-                key={index}
-                className={`mb-6 ${
-                  message.role === 'user' ? 'flex justify-end' : 'flex justify-start'
-                }`}
-              >
+        
+        {/* Messages Container */}
+        <div className="flex-1 overflow-hidden">
+          <ScrollArea className="h-full p-4">
+            <div className="max-w-3xl mx-auto pb-20">
+              {messages.map((message, index) => (
                 <div
-                  className={`rounded-lg p-4 max-w-[85%] whitespace-pre-wrap ${
-                    message.role === 'user'
-                      ? 'bg-[#bd93f9] text-[#f8f8f2]'
-                      : 'bg-[#44475a] text-[#f8f8f2]'
+                  key={index}
+                  className={`mb-6 ${
+                    message.role === 'user' ? 'flex justify-end' : 'flex justify-start'
                   }`}
                 >
-                  {formatMessage(message.content)}
+                  <div
+                    className={`rounded-lg p-4 max-w-[85%] whitespace-pre-wrap ${
+                      message.role === 'user'
+                        ? 'bg-[#bd93f9] text-[#f8f8f2]'
+                        : 'bg-[#44475a] text-[#f8f8f2]'
+                    }`}
+                  >
+                    {formatMessage(message.content)}
+                  </div>
                 </div>
-              </div>
-            ))}
-            <div ref={messagesEndRef} />
-          </div>
-        </ScrollArea>
+              ))}
+              <div ref={messagesEndRef} />
+            </div>
+          </ScrollArea>
+        </div>
 
-        {/* Input Area */}
-        <div className="p-4 border-t border-[#44475a]">
+        {/* Input Area - Fixed at bottom */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-[#44475a] bg-[#282a36]">
           <form onSubmit={handleSubmit} className="max-w-3xl mx-auto flex gap-4">
             <input
               type="text"
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
-              className="flex-1 bg-[#44475a] text-[#f8f8f2] rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#bd93f9] placeholder-[#6272a4]"
+              className="flex-1 bg-[#44475a] text-[#f8f8f2] rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#bd93f9] placeholder-[#6272a4] min-h-[44px]"
               placeholder="Type your message..."
             />
             <button
               type="submit"
-              className="bg-[#bd93f9] text-[#f8f8f2] px-6 py-3 rounded-md hover:bg-[#ff79c6] transition-colors"
+              className="bg-[#bd93f9] text-[#f8f8f2] px-6 py-3 rounded-md hover:bg-[#ff79c6] transition-colors whitespace-nowrap"
             >
               Send
             </button>
