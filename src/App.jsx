@@ -237,6 +237,11 @@ function App() {
 
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col h-screen overflow-hidden">
+        <div className="p-4 border-b border-[#44475a] bg-[#282a36]">
+          <h1 className="text-xl font-semibold text-center text-[#bd93f9]">
+            Carryu Indonesia AI
+          </h1>
+        </div>
         <ScrollArea className="flex-1 p-4 overflow-y-auto">
           <div className="max-w-3xl mx-auto">
             {messages.map((message, index) => (
