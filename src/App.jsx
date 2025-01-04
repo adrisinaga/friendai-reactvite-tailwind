@@ -236,42 +236,40 @@ function App() {
       </div>
 
       {/* Main Chat Area */}
-      <div className="flex-1 flex flex-col h-[100dvh] relative">
-        <div className="p-4 border-b border-[#44475a] bg-[#282a36]">
+      <div className="flex-1 flex flex-col h-[100dvh] max-h-screen">
+        <div className="shrink-0 p-4 border-b border-[#44475a] bg-[#282a36]">
           <h1 className="text-xl font-semibold text-center text-[#ffffff]">
             Carryu Indonesia AI
           </h1>
         </div>
         
         {/* Messages Container */}
-        <div className="flex-1 overflow-hidden relative">
-          <ScrollArea className="h-[calc(100vh-8rem)] p-4">
-            <div className="max-w-3xl mx-auto pb-20">
-              {messages.map((message, index) => (
+        <div className="flex-1 overflow-y-auto">
+          <div className="max-w-3xl mx-auto p-4">
+            {messages.map((message, index) => (
+              <div
+                key={index}
+                className={`mb-6 ${
+                  message.role === 'user' ? 'flex justify-end' : 'flex justify-start'
+                }`}
+              >
                 <div
-                  key={index}
-                  className={`mb-6 ${
-                    message.role === 'user' ? 'flex justify-end' : 'flex justify-start'
+                  className={`rounded-lg p-4 max-w-[85%] whitespace-pre-wrap ${
+                    message.role === 'user'
+                      ? 'bg-[#bd93f9] text-[#f8f8f2]'
+                      : 'bg-[#44475a] text-[#f8f8f2]'
                   }`}
                 >
-                  <div
-                    className={`rounded-lg p-4 max-w-[85%] whitespace-pre-wrap ${
-                      message.role === 'user'
-                        ? 'bg-[#bd93f9] text-[#f8f8f2]'
-                        : 'bg-[#44475a] text-[#f8f8f2]'
-                    }`}
-                  >
-                    {formatMessage(message.content)}
-                  </div>
+                  {formatMessage(message.content)}
                 </div>
-              ))}
-              <div ref={messagesEndRef} />
-            </div>
-          </ScrollArea>
+              </div>
+            ))}
+            <div ref={messagesEndRef} className="h-4" />
+          </div>
         </div>
 
         {/* Input Area - Fixed at bottom */}
-        <div className="sticky bottom-0 left-0 right-0 p-4 border-t border-[#44475a] bg-[#282a36] mt-auto">
+        <div className="shrink-0 p-4 border-t border-[#44475a] bg-[#282a36]">
           <form onSubmit={handleSubmit} className="max-w-3xl mx-auto flex gap-4">
             <input
               type="text"
